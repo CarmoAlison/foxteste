@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fox Açaí - O melor açaí da cidade</title>
+    <link rel="icon" href="imagens/1.png" type="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="imagens/fox (4).png" alt="">
+                <hr>
+                <div class="text-logo">
+                    <h1>Fox</h1>
+                    <h1 id="acai">Açai</h1>
+                </div>
+            </div>
+            <nav>
+                <ul id="itens">
+
+                    <div class="logo">
+                        <img src="imagens/fox (4).png" alt="">
+                        <hr>
+                        <div class="text-logo">
+                            <h1>Fox</h1>
+                            <h1 id="acai">Açai</h1>
+                        </div>
+                        <button aria-label="Menu" onclick="clickMenu()">
+                            <span class="menu-icon">X</span>
+                        </button>
+                    </div>
+                    <hr>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="especiais.html">Especiais</a></li>
+                    <li><a href="combos.html">Combos</a></li>
+                    <li><a href="salgados.html">Salgados</a></li>
+                    <li><a href="custumizar.html">Personalize</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                    <li><a href="login.html">Admin</a></li>
+                </ul>
+            </nav>
+            <button aria-label="Menu" onclick="clickMenu()" id="itenMenu">
+                <span class="menu-icon">☰</span>
+            </button>
+
+        </div>
+    </header>
+    <div class="cart-iconVoltar">
+        <a href="index.html">Volte ao carrinho</a>
+    </div>
+
+    <!-- combos -->
+    <section class="products1" id="products">
+        <div class="container">
+            <h2 class="section-title">COMBOS DA <span>MADRUGADA</span></h2>
+            <p class="section-subtitle">Conheça nossa linha de combos</p>
+
+            <div class="product-grid">
+                <!-- Combo Madrugadão -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imagens/products/combo1.png" alt="Combo Madrugadão">
+                    </div>
+                    <div class="product-info">
+                        <h3>Combo Madrugadão</h3>
+                        <p class="product-description">Copo 330ml + 1 salgado + frete grátis!</p>
+                        <div class="product-sizes">
+                            <div class="size-option" style="justify-content: center; font-weight: bold;">
+                                R$ 19,90
+                            </div>
+                        </div>
+                        <button class="add-to" data-product="Combo Madrugadão" data-price="19.90"
+                            onclick="openModal('modal-combo1')">ADICIONAR AO
+                            CARRINHO</button>
+                    </div>
+                </div>
+
+                <!-- Combo Casal da Madruga -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imagens/products/combo2.png" alt="Combo Casal da Madruga">
+                    </div>
+                    <div class="product-info">
+                        <h3>Combo Casal da Madruga</h3>
+                        <p class="product-description">2 Copos 400ml + 2 salgados + frete grátis!</p>
+                        <div class="product-sizes">
+                            <div class="size-option" style="justify-content: center; font-weight: bold;">
+                                R$ 39,99
+                            </div>
+                        </div>
+                        <button class="add-to" data-product="Combo Casal da Madruga" data-price="39.99"
+                            onclick="openModal('modal-combo2')">ADICIONAR
+                            AO CARRINHO</button>
+                    </div>
+                </div>
+
+                <!-- Combo Família ou Amigos -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="imagens/products/combo3.png" alt="Combo Família ou Amigos">
+                    </div>
+                    <div class="product-info">
+                        <h3>Combo Família ou Amigos</h3>
+                        <p class="product-description">3 Copos 500ml + 3 salgados + frete grátis!</p>
+                        <div class="product-sizes">
+                            <div class="size-option" style="justify-content: center; font-weight: bold;">
+                                R$ 65,99
+                            </div>
+                        </div>
+                        <button class="add-to" data-product="Combo Família ou Amigos" data-price="65.99"
+                            onclick="openModal('modal-combo3')">ADICIONAR
+                            AO CARRINHO</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer  -->
+    <footer>
+        <div class="container1">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <div class="logo-fox-footer">
+                            <img src="imagens/fox (4).png" alt="">
+                            <hr>
+                            <div class="fox-footer">
+                                <h2>FOX <span>AÇAÍ</span></h2>
+                                <p>O melhor açai da cidade!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <h3>Links</h3>
+                        <ul>
+                            <li><a href="#home">Início</a></li>
+                            <li><a href="#products">Cardápio</a></li>
+                            <li><a href="#custom">Personalize</a></li>
+                            <li><a href="#about">Sobre</a></li>
+                            <li><a href="#contact">Contato</a></li>
+                            <li><a href="login.html">Admin</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-contact">
+                        <h3>Contato</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Rua Pereira Carneiro, 214</p>
+                        <p><i class="fas fa-phone"></i> (84) 99672-0476</p>
+                        <p><i class="fas fa-envelope"></i> contato@foxacai.com.br</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container2">
+                <div class="logoExcelencia">
+                    <img src="imagens/LOGO BRANCA.png" alt="">
+                    <hr>
+                    <div class="text-logo-ex">
+                        <h1>Excelência<span>Web</span>
+                        </h1>
+                        <p>Agência de sites</p>
+                    </div>
+                </div>
+                <div class="informa-excelencia">
+                    <h4>Contato</h4>
+                    <hr>
+                    <p><i class="fas fa-phone"></i> (84) 8499600-2433</p>
+                    <p><i class="fas fa-envelope"></i> contato@excelenciaweb.com.br</p>
+                </div>
+                <div class="redes-sociais-excelencia">
+                    <a href="https://wa.me/5584996002433"><img src="imagens/whatsapp.png" alt=""></a>
+                    <a href="tel:84996002433"> <img src="imagens/chamada-telefonica.png" alt=""></a>
+                    <a href="https://instagram.com/excelencia_web"> <img src="imagens/instagram.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Fox Açaí. Todos os direitos reservados. | Site criado pela Excelência Web.</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+
+<script>
+
+    function clickMenu() {
+        var itens = document.getElementById("itens");
+        if (itens.style.display == "block") {
+            itens.style.display = "none";
+        } else {
+            itens.style.display = "block";
+        }
+    }
+    function cardPersonalizar() {
+        toggleVisibility("personalizarComboA");
+    }
+
+    function cardPersonalizarA() {
+        toggleVisibility("personalizarComboB");
+    }
+
+    function cardPersonalizarB() {
+        toggleVisibility("personalizarComboC");
+    }
+
+    // Função auxiliar para evitar repetição
+    function toggleVisibility(id) {
+        const element = document.getElementById(id);
+        if (element.style.display === "block") {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+    }
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const sizeSelect = document.getElementById('size');
+        const sizeSelectCombo = document.getElementById('sizeCombo');
+        const cremesLabel = document.getElementById('cremes-label');
+        const acompanhamentosLabel = document.getElementById('acompanhamentos-label');
+        const acompanhamentosLabelCombo = document.getElementById('acompanhamentos-label');
+        const frutasLabel = document.getElementById('frutas\-label');
+        const coberturaLabel = document.getElementById('cobertura-label');
+
+        // Configurações para cada tamanho
+        const sizeConfig = {
+            '300': { cremes: 2, acompanhamentos: 3, frutas: 1, cobertura: 1 },
+            '330': { cremes: 2, acompanhamentos: 3, frutas: 1, cobertura: 1 },
+            '400': { cremes: 2, acompanhamentos: 3, frutas: 2, cobertura: 1 },
+            '440': { cremes: 2, acompanhamentos: 3, frutas: 2, cobertura: 1 },
+            '500': { cremes: 2, acompanhamentos: 5, frutas: 2, cobertura: 1 },
+            '550': { cremes: 2, acompanhamentos: 5, frutas: 2, cobertura: 1 },
+            '700': { cremes: 2, acompanhamentos: 6, frutas: 3, cobertura: 1 }
+        };
+
+        // Armazenar referências dos event listeners para poder removê-los depois
+        const checkboxListeners = {
+            'cremes-group': [],
+            'cremes-group-combo': [],
+            'acompanhamentos-group': [],
+            'acompanhamentos-group-combo': [],
+            'frutas-group': [],
+            'cobertura-group': []
+        };
+
+        // Atualiza os labels e limites quando o tamanho é alterado
+        function updateLimits() {
+            const selectedSize = sizeSelect.value;
+            const config = sizeConfig[selectedSize];
+
+            cremesLabel.textContent = `Cremes: (Escolha até ${config.cremes})`;
+            acompanhamentosLabel.textContent = `Acompanhamento Grátis: (Escolha até ${config.acompanhamentos})`;
+            frutasLabel.textContent = `Frutas: (Escolha até ${config.frutas})`;
+            coberturaLabel.textContent = `Cobertura: (Escolha até ${config.cobertura})`;
+
+            setupCheckboxLimits('cremes-group', config.cremes);
+            setupCheckboxLimits('cremes-group-combo', config.cremes);
+            setupCheckboxLimits('acompanhamentos-group', config.acompanhamentos);
+            setupCheckboxLimits('frutas-group', config.frutas);
+            setupCheckboxLimits('cobertura-group', config.cobertura);
+        }
+
+        // Configura os limites de seleção para um grupo de checkboxes
+        function setupCheckboxLimits(groupId, limit) {
+            const checkboxes = document.getElementById(groupId).querySelectorAll('input[type="checkbox"]');
+
+            // Remove event listeners antigos
+            checkboxes.forEach((checkbox, index) => {
+                if (checkboxListeners[groupId][index]) {
+                    checkbox.removeEventListener('change', checkboxListeners[groupId][index]);
+                }
+            });
+
+            // Limpa o array de listeners
+            checkboxListeners[groupId] = [];
+
+            // Adiciona novos event listeners
+            checkboxes.forEach(checkbox => {
+                const listener = function () {
+                    const checkedCount = document.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`).length;
+
+                    if (checkedCount > limit) {
+                        this.checked = false;
+                        alert(`Você só pode selecionar até ${limit} itens nesta categoria.`);
+                    }
+                };
+
+                checkbox.addEventListener('change', listener);
+                checkboxListeners[groupId].push(listener);
+            });
+        }
+
+        // Inicializa os limites
+        updateLimits();
+
+        // Atualiza quando o tamanho é alterado
+        sizeSelect.addEventListener('change', updateLimits);
+        sizeSelectCombo.addEventListener('change', updateLimits);
+    });
+    
+</script>
+</html>

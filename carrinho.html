@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Fox Açaí</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --primary-color: rgb(84, 0, 105);
+            --secondary-color: #f8f9fa;
+            --accent-color: #ffc107;
+            --text-color: #333;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        .cart-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--light-gray);
+        }
+
+        .nav-links .active {
+            color: var(--primary-color);
+            background-color: rgba(84, 0, 105, 0.1);
+        }
+
+        /* Cart Page */
+        .cart-page {
+            padding: 40px 0;
+            min-height: calc(100vh - 150px);
+        }
+
+        .cart-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .cart-items-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        .cart-summary-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+            color: var(--primary-color);
+        }
+
+        /* Cart Items */
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .item-size {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+            margin-top: 5px;
+            white-space: pre-wrap;
+        }
+
+        .item-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .item-remove {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .item-remove:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--gray-color);
+        }
+
+        /* Cart Summary */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+
+        .summary-label {
+            color: var(--gray-color);
+        }
+
+        .summary-value {
+            font-weight: 600;
+        }
+
+        .total-price {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .cart-actions {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .clear-cart {
+            background-color: #f8f9fa;
+            color: var(--gray-color);
+            border: 1px solid var(--light-gray);
+        }
+
+        .clear-cart:hover {
+            background-color: #e9ecef;
+        }
+
+        .checkout {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .checkout:hover {
+            background-color: rgb(64, 0, 80);
+        }
+
+        .continue-shopping {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+
+        .continue-shopping:hover {
+            background-color: #e0a800;
+        }
+
+        /* Modal de informações do cliente */
+        .customer-info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            display: none;
+        }
+
+        .customer-info-modal.active {
+            display: flex;
+        }
+
+        .customer-info-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .customer-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .customer-info-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close-customer-info {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: normal;
+        }
+
+        .order-type-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .order-type-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .order-type-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .order-type-btn.delivery-active {
+            background-color: rgb(84, 0, 105);
+            color: white;
+            border-color: rgb(84, 0, 105);
+        }
+
+        .order-type-btn.pickup-active {
+            background-color: rgb(84, 0, 105);
+            color: white;
+            border-color: rgb(84, 0, 105);
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: rgb(64, 0, 80);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1500;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Footer */
+        .cart-footer {
+            background-color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .cart-container {
+                flex-direction: column;
+            }
+
+            .cart-items-section,
+            .cart-summary-section {
+                width: 100%;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cart Page -->
+    <main class="cart-page">
+        <div class="container">
+            <h1 class="cart-title">Seu Carrinho</h1>
+
+            <div class="cart-container">
+                <!-- Seção de Itens -->
+                <section class="cart-items-section">
+                    <h2 class="section-title">Itens</h2>
+                    <div class="cart-items">
+                        <!-- Itens serão renderizados dinamicamente aqui -->
+                    </div>
+                </section>
+
+                <!-- Seção de Resumo -->
+                <section class="cart-summary-section">
+                    <h2 class="section-title">Resumo do Pedido</h2>
+
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span class="summary-label">Subtotal</span>
+                            <span class="summary-value" id="subtotal">R$0,00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Taxa de Entrega</span>
+                            <span class="summary-value" id="delivery-fee">R$0,00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label">Total</span>
+                            <span class="summary-value total-price" id="total">R$0,00</span>
+                        </div>
+                    </div>
+
+                    <div class="cart-actions">
+                        <button class="action-btn clear-cart">Limpar Carrinho</button>
+                        <button class="action-btn checkout">Finalizar Pedido</button>
+                        <a href="index.html" class="action-btn continue-shopping">Continuar Comprando</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Informações do Cliente -->
+    <div class="customer-info-modal">
+        <div class="customer-info-content">
+            <div class="customer-info-header">
+                <h3 id="info-modal-title">INFORMAÇÕES PARA ENTREGA</h3>
+                <span class="close-customer-info">&times;</span>
+            </div>
+
+            <form id="customer-info-form">
+                <!-- Tipo de Pedido -->
+                <div class="form-group">
+                    <label>Tipo de Pedido</label>
+                    <div class="order-type-options">
+                        <button type="button" class="order-type-btn active delivery-active"
+                            data-type="delivery">Entrega</button>
+                        <button type="button" class="order-type-btn" data-type="pickup">Retirada</button>
+                    </div>
+                </div>
+
+                <!-- Campos para Entrega -->
+                <div id="delivery-fields">
+                    <div class="form-group">
+                        <label for="customer-address">Endereço Completo</label>
+                        <input type="text" id="customer-address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customer-neighborhood">Bairro</label>
+                        <input type="text" id="customer-neighborhood" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Local de Entrega</label>
+                        <div class="payment-entrega">
+                            <label><input type="radio" name="entrega" value="Macau" required> Macau</label>
+                            <label><input type="radio" name="entrega" value="I ilha"> I ilha</label>
+                            <label><input type="radio" name="entrega" value="II ilha"> II ilha</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações Gerais -->
+                <div class="form-group">
+                    <label for="customer-name">Nome Completo</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-phone">Telefone</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Forma de Pagamento</label>
+                    <div class="payment-options">
+                        <label><input type="radio" name="payment" value="Dinheiro" required> Dinheiro</label>
+                        <label><input type="radio" name="payment" value="Pix"> Pix</label>
+                        <label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão de Crédito</label>
+                        <label><input type="radio" name="payment" value="Cartão de Débito"> Cartão de Débito</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-notes">Observações</label>
+                    <textarea id="customer-notes"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar Pedido via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    </body>
+    <script src="/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elementos da página
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const subtotalElement = document.getElementById('subtotal');
+            const deliveryFeeElement = document.getElementById('delivery-fee');
+            const totalElement = document.getElementById('total');
+            const clearCartBtn = document.querySelector('.clear-cart');
+            const checkoutBtn = document.querySelector('.checkout');
+            const customerInfoModal = document.querySelector('.customer-info-modal');
+            const closeCustomerInfo = document.querySelector('.close-customer-info');
+            const overlay = document.querySelector('.overlay');
+            const customerInfoForm = document.getElementById('customer-info-form');
+            const infoModalTitle = document.getElementById('info-modal-title');
+            const deliveryFields = document.getElementById('delivery-fields');
+            const orderTypeButtons = document.querySelectorAll('.order-type-btn');
+
+            // Dados do carrinho
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let deliveryFee = 0;
+            let orderType = 'delivery'; // Padrão: entrega
+
+            // Renderizar itens do carrinho
+            renderCartItems();
+            updateCartTotals();
+
+            // Limpar carrinho
+            clearCartBtn.addEventListener('click', function () {
+                cart = [];
+                deliveryFee = 0;
+                saveCart();
+                renderCartItems();
+                updateCartTotals();
+            });
+
+            // Finalizar pedido
+            checkoutBtn.addEventListener('click', function () {
+                if (cart.length === 0) {
+                    alert('Seu carrinho está vazio!');
+                    return;
+                }
+
+                // Mostrar modal de informações do cliente
+                customerInfoModal.classList.add('active');
+                overlay.classList.add('active');
+                setOrderType('delivery');
+            });
+
+            // Fechar modal de informações
+            closeCustomerInfo.addEventListener('click', function () {
+                customerInfoModal.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', function () {
+                customerInfoModal.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Botões de tipo de pedido
+            orderTypeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const type = this.getAttribute('data-type');
+                    setOrderType(type);
+                });
+            });
+
+            // Envio do formulário
+            customerInfoForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                processCheckout();
+            });
+
+            // Funções auxiliares
+            function renderCartItems() {
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p class="empty-cart">Seu carrinho está vazio</p>';
+                    return;
+                }
+
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+
+                    cartItem.innerHTML = `
+                        <div class="item-info">
+                            <div class="item-name">${item.name}</div>
+                            ${item.size ? `<div class="item-size">${item.size}</div>` : ''}
+                            ${item.description ? `<div class="item-description">${item.description}</div>` : ''}
+                        </div>
+                        <div class="item-right">
+                            <div class="item-price">R$${item.price.toFixed(2)}</div>
+                            <button class="item-remove" data-index="${index}">&times;</button>
+                        </div>
+                    `;
+
+                    cartItemsContainer.appendChild(cartItem);
+                });
+
+                // Adiciona eventos de remoção
+                document.querySelectorAll('.item-remove').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        cart.splice(index, 1);
+                        saveCart();
+                        renderCartItems();
+                        updateCartTotals();
+                    });
+                });
+            }
+
+            function updateCartTotals() {
+                const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+                // Verifica se há combo da madrugada no carrinho
+                const hasMadrugadaCombo = cart.some(item =>
+                    item.name.includes("Combo Madrugadão") ||
+                    item.name.includes("Combo Casal") ||
+                    item.name.includes("Combo Família")
+                );
+
+                // Atualiza taxa de entrega
+                deliveryFee = 0;
+                if (orderType === 'delivery' && !hasMadrugadaCombo) {
+                    const deliveryOption = document.querySelector('input[name="entrega"]:checked');
+                    if (deliveryOption && deliveryOption.value === "II ilha") {
+                        deliveryFee = 10;
+                    }
+                }
+
+                const total = subtotal + deliveryFee;
+
+                subtotalElement.textContent = `R$${subtotal.toFixed(2)}`;
+                deliveryFeeElement.textContent = `R$${deliveryFee.toFixed(2)}`;
+                totalElement.textContent = `R$${total.toFixed(2)}`;
+            }
+
+            function setOrderType(type) {
+                orderType = type;
+
+                // Atualiza botões
+                orderTypeButtons.forEach(btn => {
+                    btn.classList.remove('active', 'delivery-active', 'pickup-active');
+                });
+
+                const activeButton = document.querySelector(`.order-type-btn[data-type="${type}"]`);
+                activeButton.classList.add('active');
+
+                if (type === 'delivery') {
+                    activeButton.classList.add('delivery-active');
+                    deliveryFields.style.display = 'block';
+                    infoModalTitle.textContent = 'INFORMAÇÕES PARA ENTREGA';
+                } else {
+                    activeButton.classList.add('pickup-active');
+                    deliveryFields.style.display = 'none';
+                    infoModalTitle.textContent = 'INFORMAÇÕES PARA RETIRADA';
+                }
+
+                updateCartTotals();
+            }
+
+            function processCheckout() {
+                // Obter informações do formulário
+                const name = document.getElementById('customer-name').value;
+                const phone = document.getElementById('customer-phone').value;
+                let address = "";
+                let neighborhood = "";
+                let deliveryOption = "";
+                const payment = document.querySelector('input[name="payment"]:checked').value;
+                const notes = document.getElementById('customer-notes').value;
+
+                if (orderType === 'delivery') {
+                    address = document.getElementById('customer-address').value;
+                    neighborhood = document.getElementById('customer-neighborhood').value;
+                    deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
+                } else {
+                    address = "Retirada";
+                    neighborhood = "Retirada";
+                    deliveryOption = "Retirada";
+                }
+
+                // Calcular total
+                const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+                const total = subtotal + deliveryFee;
+
+                // Preparar mensagem para WhatsApp
+                const phoneNumber = "5584996720476";
+                let message = `*NOVO PEDIDO - FOX AÇAÍ*\n`;
+                message += `Quero meu açaí! Faço meu pedido pelo site foxacai.com.br e conto com seu atendimento especial!\n\n`;
+                message += `*Cliente:* ${name}\n`;
+                message += `*Telefone:* ${phone}\n`;
+
+                if (orderType === 'delivery') {
+                    message += `*Endereço:* ${address}\n`;
+                    message += `*Bairro:* ${neighborhood}\n`;
+                    message += `*Local de Entrega:* ${deliveryOption}\n`;
+                } else {
+                    message += `*Tipo de pedido:* Retirada\n`;
+                }
+
+                message += `*Forma de Pagamento:* ${payment}\n\n`;
+                message += `*ITENS DO PEDIDO:*\n\n`;
+
+                cart.forEach((item, index) => {
+                    message += `*${index + 1}. ${item.name} ${item.size ? `(${item.size})` : ''}* - R$${item.price.toFixed(2)}\n`;
+                    if (item.description) {
+                        message += `${item.description}\n`;
+                    }
+                    message += "\n";
+                });
+
+                // Adicionar taxa de entrega à mensagem
+                if (deliveryFee > 0) {
+                    message += `*Taxa de entrega: R$${deliveryFee.toFixed(2)}*\n`;
+                } else if (orderType === 'delivery') {
+                    message += `*Taxa de entrega: GRÁTIS*\n`;
+                }
+
+                message += `*Subtotal: R$${subtotal.toFixed(2)}*\n`;
+                message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
+
+                if (notes.trim() !== '') {
+                    message += `*Observações:* ${notes}\n\n`;
+                }
+
+                message += `*Obrigado pelo pedido!*`;
+
+                // Fechar modal
+                customerInfoModal.classList.remove('active');
+                overlay.classList.remove('active');
+
+                // Limpar formulário
+                customerInfoForm.reset();
+
+                // Resetar tipo de pedido para entrega
+                setOrderType('delivery');
+
+                // Limpar carrinho
+                cart = [];
+                deliveryFee = 0;
+                saveCart();
+                renderCartItems();
+                updateCartTotals();
+
+                // Abrir WhatsApp
+                const encodedMessage = encodeURIComponent(message);
+                window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+            }
+
+            function saveCart() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        });
+    </script>
+
+
+</html>
